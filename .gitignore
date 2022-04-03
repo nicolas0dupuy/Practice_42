@@ -1,0 +1,7 @@
+# Ignoring pdf
+*.pdf
+
+# Ignoring compiled files
+*.o
+*.a
+*.exe
