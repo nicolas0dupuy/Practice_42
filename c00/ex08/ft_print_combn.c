@@ -5,24 +5,6 @@ void ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-char is_valid(int i, int n)
-{
-    char ok = 1;
-    int new;
-    while (n > 1)
-    {
-        new = i%10;
-        i /= 10;
-        if (new <= i%10)
-        {
-            ok = 0;
-            break;
-        }
-        n--;
-    }
-    return (ok);
-}
-
 void ft_print_pos(int i, int n)
 {
     if (n > 1)
@@ -34,31 +16,33 @@ void ft_print_pos(int i, int n)
 
 void ft_print_decomposition(int i, int n)
 {
-    if(is_valid(i, n))
-    {
-        ft_print_pos(i, n);
-        ft_putchar(',');
-        ft_putchar(' ');
-    }
+    ft_print_pos(i, n);
+    ft_putchar(',');
+    ft_putchar(' ');
 }
 
 void ft_print_combn(int n)
 {
-    unsigned int max = 1;
-    unsigned int i = 0;
-    unsigned int m = (unsigned int)n;
-    
-    while (m > 0)
+    int decomposition[10];
+    int i = 0;
+    int current = 0;
+    int diz = 1;
+    while (i < 10)
     {
-        max *= 10;
-        m--;
-    }
-    max -= 1;
-    while (i <= max)
-    {
-        ft_print_decomposition(i, n);
+        decomposition[i] = i+1;
         i++;
     }
+    decomposition[n] = -1;
+
+    i = 0;
+    diz = 1;
+    current = 0;
+    while(i < n)
+    {
+        current += decomposition[i]*diz;
+        diz *= 10;
+    }
+    // CONTINUE HERE
 }
 
 int main (void)
