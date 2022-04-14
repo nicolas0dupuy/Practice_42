@@ -14,19 +14,21 @@ void ft_print_pos(int i, int n)
     ft_putchar('0' + i%10);
 }
 
-void ft_print_decomposition(int i, int n)
+void ft_print_table(int * decomposition, int n)
 {
-    ft_print_pos(i, n);
-    ft_putchar(',');
-    ft_putchar(' ');
+    int i = 0;
+    while(i < n)
+    {
+        ft_putchar('0' + decomposition[i]);
+        i++;
+    }
 }
 
 void ft_print_combn(int n)
 {
     int decomposition[10];
     int i = 0;
-    int current = 0;
-    int diz = 1;
+    int ok = 1;
     while (i < 10)
     {
         decomposition[i] = i+1;
@@ -34,15 +36,34 @@ void ft_print_combn(int n)
     }
     decomposition[n] = -1;
 
-    i = 0;
-    diz = 1;
-    current = 0;
-    while(i < n)
-    {
-        current += decomposition[i]*diz;
-        diz *= 10;
+    int k = 0;
+
+    while(ok){
+        ft_print_table(decomposition, n);
+        i = n-1;
+        while (i >= 0)
+        {
+            if (decomposition[i] == 10 - (n - i))
+                i--;
+            else
+                break;
+        }
+
+        if (i >= 0)
+        {
+            decomposition[i] += 1;
+            while (++i < n)
+                decomposition[i] = decomposition[i-1] +1;
+        }
+        else
+            ok = 0;
+        
+        if (ok)
+        {
+            ft_putchar(',');
+            ft_putchar(' ');
+        }
     }
-    // CONTINUE HERE
 }
 
 int main (void)
